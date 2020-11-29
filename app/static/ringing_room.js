@@ -1884,7 +1884,7 @@ $(document).ready(function() {
                         bell_circle.pull_rope(15);
                     } else if (['r'].includes(key)) {
                         bell_circle.pull_rope(16);
-                    } else if (['t'].includes(key)) {
+                    } else if (['y'].includes(key)) {
                         bell_circle.pull_rope(17);
                     }
 
@@ -1908,7 +1908,7 @@ $(document).ready(function() {
                             bell_circle.rotate(15);
                         } else if (['R'].includes(key)) {
                             bell_circle.rotate(16);
-                        } else if (['T'].includes(key)) {
+                        } else if (['Y'].includes(key)) {
                             bell_circle.rotate(17);
                         }
                     }
