@@ -378,6 +378,11 @@ $(document).ready(function() {
                     tower_id: cur_tower_id
                 });
             },
+            
+            getLabel: function(number) {
+              var names = ['1','2','3','4','5','6#','6','7','8','9','10','11','12','13','14','15','16'];
+              return names[number - 1];
+            },
         },
 
         template: `
@@ -430,7 +435,7 @@ $(document).ready(function() {
                                      number == 1 ? 'btn-primary' : 'btn-outline-secondary',
                                      assigned_user == cur_user ? 'cur_user' : '']"
                             style="cursor: inherit;">
-                        <span class="number"> [[number]] </span>
+                        <span class="number"> [[getLabel(number)]] </span>
                     </button>
                 </div>
             </template>
@@ -441,7 +446,7 @@ $(document).ready(function() {
                                      number == 1 ? 'btn-primary' : 'btn-outline-secondary',
                                      assigned_user == cur_user ? 'cur_user' : '']"
                             style="cursor: inherit;">
-                        <span class="number">[[number]]</span>
+                        <span class="number">[[getLabel(number)]]</span>
                     </button>
                     <button class="btn btn-small btn_assigned_user"
                             :class="[number == 1 ? 'treble' : '',
