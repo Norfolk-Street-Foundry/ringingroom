@@ -329,7 +329,12 @@ $(document).ready(function() {
 
             // Ringing event received; now ring the bell
             ring: function() {
-                this.stroke = !this.stroke;
+                if (this.number_of_bells < 17) {
+                  this.stroke = !this.stroke;
+                } else {
+                  this.stroke = true;
+                }
+                
                 const audio_type = this.$root.$refs.controls.audio_type;
                 console.log(audio_type + ' ' + this.number_of_bells);
                 this.audio.play(bell_mappings[audio_type][this.number_of_bells][this.number - 1]);
