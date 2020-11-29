@@ -26,6 +26,7 @@
 	@if $item-count == 12 { $rot: 5*$angle/2; }
     @if $item-count == 14 { $rot: 3*$angle; }
     @if $item-count == 16 { $rot: 7*$angle/2; }
+    @if $item-count == 17 { $rot: 4*$angle; }
 
 
 	@for $i from 1 through $item-count {
@@ -108,6 +109,7 @@
       &.twelve { @include on-circle(12, $circ-size); }
       &.fourteen { @include on-circle(14, $circ-size + 3rem); }
       &.sixteen { @include on-circle(16, $circ-size + 3rem); }
+      &.seventeen { @include on-circle(17, $circ-size + 3rem); }
     }
 }
 
@@ -132,6 +134,9 @@
     }
     .fourteen .bell:not(.handbell) .bell_img, 
     .sixteen .bell:not(.handbell) .bell_img {
+        width: 1.5rem;
+    }
+    .seventeen .bell:not(.handbell) .bell_img {
         width: 1.5rem;
     }
 }
@@ -162,6 +167,9 @@
     }
     .fourteen .bell:not(.handbell) .bell_img, 
     .sixteen .bell:not(.handbell) .bell_img {
+        width: 2rem;
+    }
+    .seventeen .bell:not(.handbell) .bell_img {
         width: 2rem;
     }
 }
@@ -206,6 +214,9 @@
     }
     .fourteen .bell:not(.handbell) .bell_img, 
     .sixteen .bell:not(.handbell) .bell_img {
+        width: 2.5rem;
+    }
+    .seventeen .bell:not(.handbell) .bell_img {
         width: 2.5rem;
     }
 }
