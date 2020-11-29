@@ -1884,6 +1884,8 @@ $(document).ready(function() {
                         bell_circle.pull_rope(15);
                     } else if (['r'].includes(key)) {
                         bell_circle.pull_rope(16);
+                    } else if (['t'].includes(key)) {
+                        bell_circle.pull_rope(17);
                     }
 
                     // Shift+numkey rotates the circle so that that bell is in position 4
@@ -1906,6 +1908,8 @@ $(document).ready(function() {
                             bell_circle.rotate(15);
                         } else if (['R'].includes(key)) {
                             bell_circle.rotate(16);
+                        } else if (['T'].includes(key)) {
+                            bell_circle.rotate(17);
                         }
                     }
 
@@ -2371,7 +2375,8 @@ $(document).ready(function() {
                                 number_of_bells == 10 ? 'ten'      : '',
                                 number_of_bells == 12 ? 'twelve'   : '',
                                 number_of_bells == 14 ? 'fourteen' : '',
-                                number_of_bells == 16 ? 'sixteen'  : '']">
+                                number_of_bells == 16 ? 'sixteen' : '',
+                                number_of_bells == 17 ? 'seventeen'  : '']">
                 <call_display v-bind:audio="audio" ref="display"></call_display>
                 <focus_display ref="focus"></focus_display>
                 <bell_rope v-for="bell in bells"
