@@ -576,7 +576,7 @@ class Tower:
     @property
     def sizes_available(self):
         if self._additional_sizes_enabled:
-            return [4,5,6,8,10,12,14,16,17]
+            return [4,5,6,8,10,12,14,16]
         else:
             return [4,6,8,10,12]
 

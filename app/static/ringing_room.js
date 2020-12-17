@@ -1882,6 +1882,25 @@ $(document).ready(function() {
                     }
 
                     // The numberkeys 1-0 ring those bells, with -, = ringing E, T
+                    if (this.number_of_bells != 14) {
+                        if (parseInt(key) - 1 in [...Array(9).keys()]) {
+                            bell_circle.pull_rope(parseInt(key));
+                        } else if (parseInt(key) == 0) {
+                            bell_circle.pull_rope(10);
+                        } else if (['-'].includes(key)) {
+                            bell_circle.pull_rope(11);
+                        } else if (['='].includes(key)) {
+                            bell_circle.pull_rope(12);
+                        } else if (['q'].includes(key)) {
+                            bell_circle.pull_rope(13);
+                        } else if (['w'].includes(key)) {
+                            bell_circle.pull_rope(14);
+                        } else if (['e'].includes(key)) {
+                            bell_circle.pull_rope(15);
+                        } else if (['r'].includes(key)) {
+                            bell_circle.pull_rope(16);
+                        }
+                    } else {
                         if (['`'].includes(key)) {
                             bell_circle.pull_rope(1);
                         } else if (['1'].includes(key)) {
@@ -1911,10 +1930,33 @@ $(document).ready(function() {
                         } else if (['='].includes(key)) {
                             bell_circle.pull_rope(14);
                         }
-
+                    }
+                    
                     // Shift+numkey rotates the circle so that that bell is in position 4
                     // This is done in a slightly roundabout way to work on both US & UK keyboards
-                    if (e.shiftKey) {
+                    if (this.number_of_bells != 14) {
+                      if (e.shiftKey) {
+                          console.log(key);
+                          if (parseInt(code) - 1 in [...Array(9).keys()]) {
+                              bell_circle.rotate(parseInt(code));
+                          } else if (parseInt(code) == 0) {
+                              bell_circle.rotate(10);
+                          } else if (['_'].includes(key)) {
+                              bell_circle.rotate(11);
+                          } else if (['+'].includes(key)) {
+                              bell_circle.rotate(12);
+                          } else if (['Q'].includes(key)) {
+                              bell_circle.rotate(13);
+                          } else if (['W'].includes(key)) {
+                              bell_circle.rotate(14);
+                          } else if (['E'].includes(key)) {
+                              bell_circle.rotate(15);
+                          } else if (['R'].includes(key)) {
+                              bell_circle.rotate(16);
+                          }
+                      }
+                    } else {
+                       if (e.shiftKey) {
                         console.log(key);
                         if (['¬'].includes(key)) {
                             bell_circle.rotate(1);
@@ -1945,6 +1987,7 @@ $(document).ready(function() {
                         } else if (['+'].includes(key)) {
                             bell_circle.rotate(14);
                         }
+                      }
                     }
 
                     // Space, j, and ArrowRight ring the bell in position n/2
