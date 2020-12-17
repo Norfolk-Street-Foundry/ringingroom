@@ -388,7 +388,8 @@ $(document).ready(function() {
               if (this.number_of_bells < 17) {
                 return number;
               }
-              var names = ['1','2','3','4','5','6#','6','7','8','9','10','11','12','13','14','15','16'];
+              var names = ['0','1','2#','2','3','4','5','6','7','8','9','10','11','12'];
+
               return names[number - 1];
             },
         },
@@ -1881,48 +1882,68 @@ $(document).ready(function() {
                     }
 
                     // The numberkeys 1-0 ring those bells, with -, = ringing E, T
-                    if (parseInt(key) - 1 in [...Array(9).keys()]) {
-                        bell_circle.pull_rope(parseInt(key));
-                    } else if (parseInt(key) == 0) {
-                        bell_circle.pull_rope(10);
-                    } else if (['-'].includes(key)) {
-                        bell_circle.pull_rope(11);
-                    } else if (['='].includes(key)) {
-                        bell_circle.pull_rope(12);
-                    } else if (['q'].includes(key)) {
-                        bell_circle.pull_rope(13);
-                    } else if (['w'].includes(key)) {
-                        bell_circle.pull_rope(14);
-                    } else if (['e'].includes(key)) {
-                        bell_circle.pull_rope(15);
-                    } else if (['r'].includes(key)) {
-                        bell_circle.pull_rope(16);
-                    } else if (['y'].includes(key)) {
-                        bell_circle.pull_rope(17);
-                    }
+                        if (['`'].includes(key)) {
+                            bell_circle.pull_rope(1);
+                        } else if (['1'].includes(key)) {
+                            bell_circle.pull_rope(2);
+                        } else if (['q'].includes(key)) {
+                            bell_circle.pull_rope(3);
+                        } else if (['2'].includes(key)) {
+                            bell_circle.pull_rope(4);
+                        } else if (['3'].includes(key)) {
+                            bell_circle.pull_rope(5);
+                        } else if (['4'].includes(key)) {
+                            bell_circle.pull_rope(6);
+                        } else if (['5'].includes(key)) {
+                            bell_circle.pull_rope(7);
+                        } else if (['6'].includes(key)) {
+                            bell_circle.pull_rope(8);
+                        } else if (['7'].includes(key)) {
+                            bell_circle.pull_rope(9);
+                        } else if (['8'].includes(key)) {
+                            bell_circle.pull_rope(10);
+                        } else if (['9'].includes(key)) {
+                            bell_circle.pull_rope(11);
+                        } else if (['0'].includes(key)) {
+                            bell_circle.pull_rope(12);
+                        } else if (['-'].includes(key)) {
+                            bell_circle.pull_rope(13);
+                        } else if (['='].includes(key)) {
+                            bell_circle.pull_rope(14);
+                        }
 
                     // Shift+numkey rotates the circle so that that bell is in position 4
                     // This is done in a slightly roundabout way to work on both US & UK keyboards
                     if (e.shiftKey) {
                         console.log(key);
-                        if (parseInt(code) - 1 in [...Array(9).keys()]) {
-                            bell_circle.rotate(parseInt(code));
-                        } else if (parseInt(code) == 0) {
-                            bell_circle.rotate(10);
-                        } else if (['_'].includes(key)) {
-                            bell_circle.rotate(11);
-                        } else if (['+'].includes(key)) {
-                            bell_circle.rotate(12);
+                        if (['¬'].includes(key)) {
+                            bell_circle.rotate(1);
+                        } else if (['1'].includes(key)) {
+                            bell_circle.rotate(2);
                         } else if (['Q'].includes(key)) {
+                            bell_circle.rotate(3);
+                        } else if (['2'].includes(key)) {
+                            bell_circle.rotate(4);
+                        } else if (['3'].includes(key)) {
+                            bell_circle.rotate(5);
+                        } else if (['4'].includes(key)) {
+                            bell_circle.rotate(6);
+                        } else if (['5'].includes(key)) {
+                            bell_circle.rotate(7);
+                        } else if (['6'].includes(key)) {
+                            bell_circle.rotate(8);
+                        } else if (['7'].includes(key)) {
+                            bell_circle.rotate(9);
+                        } else if (['8'].includes(key)) {
+                            bell_circle.rotate(10);
+                        } else if (['9'].includes(key)) {
+                            bell_circle.rotate(11);
+                        } else if (['0'].includes(key)) {
+                            bell_circle.rotate(12);
+                        } else if (['_'].includes(key)) {
                             bell_circle.rotate(13);
-                        } else if (['W'].includes(key)) {
+                        } else if (['+'].includes(key)) {
                             bell_circle.rotate(14);
-                        } else if (['E'].includes(key)) {
-                            bell_circle.rotate(15);
-                        } else if (['R'].includes(key)) {
-                            bell_circle.rotate(16);
-                        } else if (['Y'].includes(key)) {
-                            bell_circle.rotate(17);
                         }
                     }
 
