@@ -329,7 +329,7 @@ $(document).ready(function() {
 
             // Ringing event received; now ring the bell
             ring: function() {
-                if (this.number_of_bells < 17) {
+                if (this.number_of_bells != 14) {
                   this.stroke = !this.stroke;
                 } else {
                   this.stroke = true;
@@ -385,7 +385,7 @@ $(document).ready(function() {
             },
             
             getLabel: function(number) {
-              if (this.number_of_bells < 17) {
+              if (this.number_of_bells != 14) {
                 return number;
               }
               var names = ['0','1','2#','2','3','4','5','6','7','8','9','10','11','12'];
@@ -2452,8 +2452,7 @@ $(document).ready(function() {
                                 number_of_bells == 10 ? 'ten'      : '',
                                 number_of_bells == 12 ? 'twelve'   : '',
                                 number_of_bells == 14 ? 'fourteen' : '',
-                                number_of_bells == 16 ? 'sixteen' : '',
-                                number_of_bells == 17 ? 'seventeen'  : '']">
+                                number_of_bells == 16 ? 'sixteen' : '']">
                 <call_display v-bind:audio="audio" ref="display"></call_display>
                 <focus_display ref="focus"></focus_display>
                 <bell_rope v-for="bell in bells"
