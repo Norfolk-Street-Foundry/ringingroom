@@ -1,0 +1,18 @@
+# Define the machine image to be used
+image: debian/buster64
+
+# The port configuration defines services which should be mapped using NAT between the host and guest
+ports:
+ ssh:
+  host: 1234
+  guest: 22
+ www:
+  host: 5000
+  guest: 5000
+
+shared_dirs:
+ pub:
+  host: ..
+  guest: /srv/ringing_room
+
+

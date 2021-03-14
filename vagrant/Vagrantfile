@@ -1,0 +1,129 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+require 'yaml'
+
+# Vagrant (portable virtual machine configuration) for the CML Test Database
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  # For a complete reference to VM configuration, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  supported_images = [ 'debian/buster64' ]
+  
+  print_diagnostics = (ARGV[0] == 'up')
+  
+  default_config = {
+    'image'=>supported_images[0],    
+    'shared_dirs'=>{ }
+  }
+
+  def flatten_hash(input_type, prefix='')
+    if input_type.is_a?(Hash)
+      returnval = Hash.new
+      input_type.each do |key, value|
+        if prefix == ''
+          new_prefix = key
+        else
+          new_prefix = prefix + '_' + key
+        end
+        new_prefix = new_prefix.upcase.tr('-','_')
+        returnval = returnval.merge(flatten_hash(value, new_prefix))
+      end
+      return returnval
+    else
+      if input_type.is_a?(Array)      
+        return {prefix=>'list'}
+      else
+        return {prefix=>input_type}
+      end
+    end
+  end
+  
+  def print_hash(input_type, level=0)
+    indent_string = ' '*level*2
+    bullet = ['*', '-', '+'][level % 3]
+    
+    if input_type.respond_to?(:each)
+      input_type.each do |key, value|
+        if !value.respond_to?(:each)
+          puts "#{indent_string}#{bullet} #{key}: #{value}"
+        else
+          puts "#{indent_string}#{bullet} #{key}"
+          print_hash(value, level+1)
+        end
+      end
+    else
+      puts indent_string + value.to_s
+    end
+  end  
+
+  box_config = default_config
+  begin
+    file_config = YAML.load_file('ringingroom-vagrant-config.yml')
+    box_config = box_config.merge(file_config)
+    box_config['source'] = 'ringingroom-vagrant-config.yml'
+  rescue Errno::ENOENT
+    puts "Unable to load config - using defaults"
+  end
+
+  if print_diagnostics
+    check_ports = %w[ www ]
+    check_ports.each do | service |
+        if box_config['ports'].key?(service)
+            host_port = box_config['ports'][service]['host']
+            guest_port = box_config['ports'][service]['guest']
+            if host_port != guest_port
+                puts "WARNING: It is recommended for service '#{service}' that the host and guest port"
+                puts "WARNING: are set equal. Currently host == #{host_port} and guest == #{guest_port}."
+            end
+        end
+    end
+  
+    puts "~~~ Configuration ~~~"
+    print_hash(box_config)
+    puts "~~~ Configuration ~~~"
+  end
+
+  config_flat_hash = flatten_hash( box_config, "VCFG" )
+    
+  if !supported_images.include?(box_config['image'])
+    puts "The requested image #{box_config['image']} is not supported"
+    puts "Supported images are #{supported_images}"
+    abort
+  end
+  
+  config.vm.box = box_config['image']
+  
+
+  if print_diagnostics
+    puts "~~~ network ports ~~~"
+  end
+  box_config['ports'].each do |service, port_config|
+    if print_diagnostics
+        puts "  - Host #{port_config['host']} => Guest #{port_config['guest']} (#{service})"
+    end
+    config.vm.network "forwarded_port", guest: port_config['guest'], host: port_config['host'], id: service
+  end
+  
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1024
+  end
+  config.vm.provision :shell, path: "bootstrap_wrapper.sh", env: config_flat_hash   
+
+  if print_diagnostics
+    puts "~~~ shared directories ~~~"
+  end
+  box_config['shared_dirs'].each do |function, dir_config|
+    config.vm.synced_folder dir_config['host'], dir_config['guest'], type: "virtualbox"      
+    
+    if print_diagnostics
+        puts "  - #{dir_config['host']} => #{dir_config['guest']}"
+    end
+  end
+
+end
