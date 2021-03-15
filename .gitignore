@@ -1,5 +1,10 @@
+nohup.out
+
 # pycharm files
 .idea/
+
+# Visual Studio files
+.vs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -134,6 +139,9 @@ dmypy.json
 *.swp
 *.un~
 
+# emacs files
+*.#*
+
 .sass-cache/
 
 # Don't track the virtual environment
@@ -156,3 +164,4 @@ app/static/gen/
 # don't track logs
 logs/
 sendgrid.env
+
